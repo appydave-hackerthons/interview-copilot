@@ -1,11 +1,37 @@
 # Interview Copilot
 
-A local-first research partner that helps a human conduct better interviews.
-While the conversation is happening, Interview Copilot turns the transcript into
-a shared evidence pool and quietly surfaces the next useful question, risk, or
-pattern.
+**A local-first research partner that turns a live interview into an evidence base while it is
+still happening** — surfacing the next useful question, the bias you are about to walk into, and
+the claim worth checking, without joining the conversation.
 
 Built at the **Hacker Fund hackathon, Chiang Mai, August 2026**.
+
+## See it
+
+Two live snapshots from a real 20-minute interview — 157 transcript turns, 45 evidence items,
+no hand-editing:
+
+| | |
+|---|---|
+| 🎛️ **[The workspace](https://claude.ai/code/artifact/f713482e-164b-4e16-a7fa-7771aa2ad4ea)** | What the interviewer sees. Conversation path, live transcript, evidence pool, and the five agent lenses surfacing guidance |
+| 📄 **[The report it produced](https://claude.ai/code/artifact/97b27347-2995-4725-ae67-7fbf7c90f167)** | What comes out. Pains, facts, verbatim quotes, unanswered questions, a labelled hypothesis and one validation test |
+
+[![The Interview Copilot workspace, mid-interview](docs/images/workspace.png)](https://claude.ai/code/artifact/f713482e-164b-4e16-a7fa-7771aa2ad4ea)
+
+> [!NOTE]
+> The snapshots are static. To run the real thing, see [Run locally](#run-locally) — two commands.
+
+### What a real run looked like
+
+| | |
+|---|---|
+| Interview | 20 minutes · 157 turns |
+| Evidence extracted | 45 items — facts, pains, quotes, workflows, tools |
+| Report | 10 pain points · 24 key facts · 10 quotes · 12 unanswered questions |
+| Coverage | 4 of 6 criteria met — **the app marked its own interview incomplete** |
+
+That last row is the design working. The report scores the *interview*, not itself, and says
+plainly what was never established.
 
 ## The problem
 
@@ -213,6 +239,21 @@ cannot erase the conversation. Raw-audio persistence can be disabled while
 keeping the transcript ledger. This private archive is excluded from Git.
 
 More detail is available in [the MVP contract](docs/MVP.md).
+
+## The evidence rules
+
+The rules that make a report trustworthy, and the reason the output reads as research rather
+than as a summary:
+
+- The **transcript is the source of truth**.
+- **Agent suggestions are not facts until pinned** — and stay labelled as agent material after
+  pinning.
+- **External claims require a real URL.** With no web retrieval, the research lens proposes a
+  search rather than fabricating a result.
+- **Confidence communicates extraction certainty**, not objective truth.
+- Promoted evidence enters the next model context first; dismissed suggestions disappear.
+
+[![The report it produced](docs/images/report.png)](https://claude.ai/code/artifact/97b27347-2995-4725-ae67-7fbf7c90f167)
 
 ## Run locally
 
