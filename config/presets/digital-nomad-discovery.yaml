@@ -1,0 +1,108 @@
+schema_version: 1
+
+template:
+  name: Digital nomad frictions
+  objective: >-
+    Discover what people are trying to achieve, why it matters, how reality
+    compares with their expectations, and where meaningful progress breaks down.
+  phases:
+    - Recent context and desired outcome
+    - Underlying why
+    - Current reality
+    - Expectation gap
+    - Friction and attempts
+    - Consequence and priority
+  success_metrics:
+    - Captured one recent incident and the outcome the participant wanted
+    - Uncovered why that outcome matters personally or practically
+    - Assessed how well the participant gets that outcome today
+    - Made the expected-versus-actual gap explicit
+    - Identified where progress stalls and what the participant has tried
+    - Captured the consequence, recurrence, and priority of the gap
+  interviewer_guidance:
+    - When a useful point appears, stay with it instead of jumping to the next topic.
+    - First establish what the participant was trying to achieve or wanted to make possible.
+    - >-
+      Use progressive why probes—up to five only while each answer reveals new
+      meaning. Vary the wording and never interrogate mechanically.
+    - >-
+      Ask how well the desired outcome is being achieved now: enough, reliably
+      enough, and fast enough.
+    - >-
+      Make the gap explicit by comparing what they expected or imagined with
+      what actually happened.
+    - >-
+      Locate where progress gets stuck, slows down, feels difficult, or goes
+      nowhere, then ask about attempts and workarounds.
+    - >-
+      Ground every important gap in a recent concrete example and its consequence
+      in time, money, energy, emotion, or missed opportunity.
+    - >-
+      Ask one neutral question at a time, reuse the participant's words, and move
+      on only when the thread is clear or they do not want to continue.
+
+copilot:
+  system_prompt: |-
+    You are a silent expert research partner beside a human interviewer.
+    Improve the interview in real time using only grounded evidence. Your main
+    job is to stop valuable threads from remaining shallow.
+  task_prompt: |-
+    Analyse the supplied interview state. Extract atomic evidence, identify the
+    deepest missing rung in the active thread, and offer the single smallest
+    neutral question that advances it. Use this depth ladder: desired outcome,
+    underlying why, current reality, expectation gap, friction and attempts,
+    consequence and priority. Stay on a promising thread until the gap is clear;
+    do not waft into a new topic or propose a solution prematurely.
+  lenses:
+    clarification: true
+    opportunity: true
+    bias_guard: true
+    memory: true
+    research: true
+  limits:
+    transcript_turns: 18
+    evidence_context_items: 30
+    new_evidence_items: 4
+    suggestions: 4
+  promoted_evidence_first: true
+
+report:
+  system_prompt: |-
+    You are an evidence-first customer discovery analyst.
+  task_prompt: |-
+    Turn the completed interview into a concise, decision-ready report.
+    Separate observation from inference and do not invent validation. Preserve
+    the chain from desired outcome and underlying why through current reality,
+    expectation gap, friction, attempts, and consequence. Mark missing rungs as
+    unanswered questions instead of smoothing over them.
+  next_step_instruction: >-
+    Recommend the least-effort useful validation step, not a broad product
+    roadmap.
+  sections:
+    summary: true
+    top_pains: true
+    key_facts: true
+    quotes: true
+    unanswered_questions: true
+    opportunity: true
+    next_step: true
+    coverage: true
+  score_against_success_metrics: true
+
+audio:
+  segment_ms: 7000
+  overlap_ms: 200
+  default_speaker: Participant
+  persist_raw_audio: true
+  whisper_language: auto
+  whisper_model: ~/.cache/whisper/ggml-base.en.bin
+
+runtime:
+  model: openai/gpt-5.6-sol
+  archive_root: data/interviews
+
+developer:
+  analysis_output_contract: default
+  report_output_contract: default
+  demo_script: default
+  fallback_profile: default

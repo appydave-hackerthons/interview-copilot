@@ -58,7 +58,7 @@ export function EvidencePanel({ evidence, onUpdate }: EvidencePanelProps) {
     <section className="workspace-panel evidence-panel">
       <header className="panel-header evidence-header">
         <div>
-          <p className="panel-index">03</p>
+          <p className="panel-index">02</p>
           <h2>Evidence</h2>
         </div>
         <span className="panel-count"><Bookmark size={13} /> {pinnedCount} pinned</span>
@@ -82,7 +82,7 @@ export function EvidencePanel({ evidence, onUpdate }: EvidencePanelProps) {
           <div className="empty-state evidence-empty">
             <Link2 size={25} strokeWidth={1.4} />
             <h3>Evidence will collect here</h3>
-            <p>Facts are discovered automatically. Pin the items that should shape the interview.</p>
+            <p>Facts will stack here from the top as the conversation develops.</p>
           </div>
         ) : (
           <>
@@ -125,6 +125,9 @@ export function EvidencePanel({ evidence, onUpdate }: EvidencePanelProps) {
                         </div>
                         <div className="detail-grid">
                           <span>Source</span><strong>{item.source}</strong>
+                          {item.provenance && <><span>Publication</span><strong>{item.provenance.source_title}</strong></>}
+                          {item.provenance && <><span>Source date</span><strong>{item.provenance.source_date ?? "Not listed"}</strong></>}
+                          {item.provenance && <><span>Judge lens</span><strong>{item.provenance.judge_lens}</strong></>}
                           <span>Referenced by</span><strong>{item.agents.length ? item.agents.join(", ") : "Evidence extractor"}</strong>
                         </div>
                         {item.related_evidence_ids.length > 0 && (

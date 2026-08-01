@@ -23,5 +23,6 @@ start:
 
 test:
 	uv run pytest -q
+	cd frontend && npm test
 
 check: test build

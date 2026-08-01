@@ -1,15 +1,13 @@
 import { AudioLines, CornerDownLeft, Mic } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import type { Speaker, TranscriptTurn } from "../types";
+import type { TranscriptTurn } from "../types";
 
 interface TranscriptPanelProps {
   transcript: TranscriptTurn[];
-  speaker: Speaker;
   isRecording: boolean;
   isTranscribing: boolean;
   isEnding: boolean;
   transcriptionAvailable: boolean;
-  onSpeakerChange: (speaker: Speaker) => void;
   onSubmit: (text: string) => void;
   onEnableRecording: () => void;
 }
@@ -22,10 +20,10 @@ function formatElapsed(seconds: number) {
 
 export function TranscriptPanel(props: TranscriptPanelProps) {
   const [draft, setDraft] = useState("");
-  const endRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [props.transcript]);
 
   function submit() {
@@ -38,13 +36,13 @@ export function TranscriptPanel(props: TranscriptPanelProps) {
     <section className="workspace-panel transcript-panel">
       <header className="panel-header">
         <div>
-          <p className="panel-index">01</p>
+          <p className="panel-index">03</p>
           <h2>Transcript</h2>
         </div>
-        <span className="panel-count">{props.transcript.length} turns</span>
+        <span className="panel-count">{props.transcript.length} lines</span>
       </header>
 
-      <div className="transcript-scroll panel-scroll">
+      <div className="transcript-scroll panel-scroll" ref={scrollRef}>
         {props.transcript.length === 0 ? (
           <div className="empty-state transcript-empty">
             <AudioLines size={25} strokeWidth={1.4} />
@@ -53,9 +51,8 @@ export function TranscriptPanel(props: TranscriptPanelProps) {
           </div>
         ) : (
           props.transcript.map((turn) => (
-            <article className={`transcript-turn ${turn.speaker.toLowerCase()}`} key={turn.id}>
+            <article className="transcript-turn" key={turn.id}>
               <div className="turn-meta">
-                <span>{turn.speaker}</span>
                 <time>{formatElapsed(turn.elapsed_seconds)}</time>
               </div>
               <p>{turn.text}</p>
@@ -65,20 +62,11 @@ export function TranscriptPanel(props: TranscriptPanelProps) {
         {props.isTranscribing && (
           <div className="transcribing-row"><span className="typing-dots"><i /><i /><i /></span> Transcribing locally</div>
         )}
-        <div ref={endRef} />
       </div>
 
       <footer className="transcript-composer">
-        <div className="speaker-toggle" aria-label="Current speaker">
-          {(["Interviewer", "Participant"] as Speaker[]).map((value) => (
-            <button
-              className={props.speaker === value ? "active" : ""}
-              key={value}
-              onClick={() => props.onSpeakerChange(value)}
-            >
-              {value}
-            </button>
-          ))}
+        <div className="stream-status-row">
+          <span className="single-stream-label">Single live stream</span>
           <span className={`mic-status ${props.isRecording ? "active" : ""}`}>
             <i /> {props.isRecording ? "Mic always on" : props.isEnding ? "Mic off" : "Mic needs access"}
           </span>
@@ -86,8 +74,8 @@ export function TranscriptPanel(props: TranscriptPanelProps) {
         <div className="composer-row">
           <textarea
             aria-label="Add transcript line"
-            placeholder={`Add what the ${props.speaker.toLowerCase()} said…`}
-            rows={2}
+            placeholder="Add to the transcript…"
+            rows={1}
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
             onKeyDown={(event) => {

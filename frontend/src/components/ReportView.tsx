@@ -1,15 +1,15 @@
-import { ArrowLeft, Check, Clipboard, Download, Lightbulb, Quote, Sparkles, Target } from "lucide-react";
+import { ArrowLeft, Check, Clipboard, Download, ExternalLink, Lightbulb, Quote, Sparkles, Target } from "lucide-react";
 import { useState } from "react";
-import type { InterviewReport, InterviewTemplate } from "../types";
+import type { InterviewTemplate, PersistentInterviewReport } from "../types";
 
 interface ReportViewProps {
-  report: InterviewReport;
+  report: PersistentInterviewReport;
   template: InterviewTemplate;
   onBack: () => void;
   onNew: () => void;
 }
 
-function reportMarkdown(report: InterviewReport, template: InterviewTemplate) {
+function reportMarkdown(report: PersistentInterviewReport, template: InterviewTemplate) {
   const list = (items: string[]) => items.map((item) => `- ${item}`).join("\n") || "- None captured";
   return `# ${template.name} — interview report
 
@@ -59,8 +59,11 @@ export function ReportView({ report, template, onBack, onNew }: ReportViewProps)
       <nav className="report-nav">
         <button className="text-button" onClick={onBack}><ArrowLeft size={15} /> Back to interview</button>
         <div className="report-nav-actions">
+          <a className="button button-secondary compact" href={report.html_url} target="_blank" rel="noreferrer">
+            <ExternalLink size={15} /> Full HTML
+          </a>
           <button className="button button-secondary compact" onClick={copy}>
-            {copied ? <Check size={15} /> : <Clipboard size={15} />} {copied ? "Copied" : "Copy"}
+            {copied ? <Check size={15} /> : <Clipboard size={15} />} {copied ? "Copied" : "Copy Markdown"}
           </button>
           <button className="button button-secondary compact" onClick={download}><Download size={15} /> Export</button>
           <button className="button button-primary compact" onClick={onNew}>New interview</button>
@@ -69,7 +72,7 @@ export function ReportView({ report, template, onBack, onNew }: ReportViewProps)
 
       <section className="report-hero">
         <div>
-          <p className="eyebrow">Interview synthesis</p>
+          <p className="eyebrow">Interview synthesis · Report {String(report.report_id).padStart(3, "0")} · Saved</p>
           <h1>{template.name}</h1>
           <p>{report.summary}</p>
           <span className={`engine-badge ${report.engine}`}>{report.engine === "openai" ? "OpenAI synthesis" : "Local synthesis"}</span>
