@@ -57,23 +57,80 @@ The central design idea is a **shared evidence pool**. Agents do not pass privat
 messages to one another or independently reinterpret the full conversation.
 They read and write the same structured objects.
 
-```text
-Microphone / typed line
-          |
-          v
-   Local transcript
-          |
-          v
- Shared evidence pool
-    /    |    |    \
-   v     v    v     v
-Question  Opportunity  Bias  Research
-          |
-          v
- Human pins and promotes what matters
-          |
-          v
- Evidence-backed interview report
+### Shared evidence and specialist pool
+
+The specialist agents are logical lenses inside one bounded analysis call, not
+five independent model processes. A separate asynchronous research lane reads
+the same interview state without blocking capture or normal analysis.
+
+```mermaid
+flowchart LR
+    transcript["Attributed transcript turns"] --> context["Shared interview context"]
+    template["Template safety rail"] --> context
+    promoted["Pinned and promoted evidence"] --> context
+
+    context --> cycle["Bounded analysis cycle"]
+
+    subgraph pool["Specialist lens pool · one model call"]
+        clarification["Clarification<br/>Find the earliest missing detail"]
+        opportunity["Opportunity<br/>Spot pains and unmet outcomes"]
+        bias["Bias guard<br/>Challenge leading assumptions"]
+        memory["Memory<br/>Reconnect earlier claims"]
+        researchLens["Research<br/>Propose an external check"]
+    end
+
+    cycle --> clarification
+    cycle --> opportunity
+    cycle --> bias
+    cycle --> memory
+    cycle --> researchLens
+
+    clarification --> guidance["Short live guidance"]
+    opportunity --> guidance
+    bias --> guidance
+    memory --> guidance
+    researchLens --> guidance
+    cycle --> extracted["New transcript-backed evidence"]
+    extracted --> evidence["Shared evidence pool"]
+
+    context -.->|meaningful claim| gate["Research trigger gate"]
+    gate --> web["Async sourced research agent"]
+    web --> sourced["Sourced Ask next card"]
+    sourced --> guidance
+
+    guidance --> interviewer["Human interviewer"]
+    interviewer -->|pin or promote| evidence
+    evidence --> context
+    evidence --> report["Evidence-backed report"]
+```
+
+### Always-on microphone feedback loop
+
+Each answer creates a tighter next question. The copilot prioritizes the
+earliest important unknown in the active thread, while the interviewer remains
+free to ignore the suggestion and follow the participant's words.
+
+```mermaid
+flowchart LR
+    participant["Participant speaks"] --> mic["Always-on microphone"]
+    mic --> chunks["Overlapping audio segments"]
+    chunks --> archive["Durable local audio archive"]
+    archive --> whisper["Local Whisper transcription"]
+    whisper --> turn["New attributed transcript turn"]
+
+    turn --> poolState["Transcript + shared evidence + interview objective"]
+    poolState --> analysis["Specialist lens pool"]
+    poolState -.->|gated and debounced| research["Async live research"]
+
+    analysis --> focus["Highest-value unresolved detail"]
+    research --> focus
+    focus --> ask["One neutral Ask next question"]
+    ask --> human["Interviewer listens and chooses"]
+    human --> question["Focused follow-up"]
+    question --> participant
+
+    turn --> evidenceUpdate["Extract facts, pains, quotes, workflows and tools"]
+    evidenceUpdate --> poolState
 ```
 
 This keeps the system extensible and makes its reasoning visible in the UI.
