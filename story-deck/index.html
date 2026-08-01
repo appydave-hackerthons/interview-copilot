@@ -36,7 +36,7 @@
 /* 9 — close */
 .close .content{display:grid;grid-template-columns:1.08fr .92fr;gap:6vw;align-items:center}.close-copy{display:grid;gap:26px}.close-copy h1{font-size:clamp(58px,7.7vw,122px)}.flywheel{height:min(68vh,660px);display:grid;place-items:center;position:relative}.flywheel svg{width:100%;height:100%;overflow:visible}.wheel{fill:none;stroke:#d2ccbf}.wheel-dash{fill:none;stroke:var(--moss);stroke-width:3;stroke-dasharray:9 11;animation:dash 20s linear infinite}.wheel-node{fill:var(--cream);stroke:#bbb5a8}.wheel-hot{fill:var(--rust);stroke:var(--rust)}.wheel-title{font:700 10px var(--sans);letter-spacing:.12em;fill:var(--ink)}.wheel-sub{font:500 8px var(--sans);fill:var(--muted)}.center-spark{animation:pulse 2.5s ease-in-out infinite;transform-origin:center}.close-note{display:flex;gap:18px;align-items:center;margin-top:7px}.close-note i{display:block;width:38px;height:1px;background:var(--rust)}
 
-.chrome{position:fixed;z-index:50;left:22px;right:22px;bottom:16px;display:flex;align-items:center;gap:13px;pointer-events:none}.progress{height:2px;flex:1;background:rgba(115,115,105,.27)}.progress i{display:block;width:10%;height:100%;background:var(--rust);transition:width .4s ease}.counter{min-width:52px;text-align:right;font:700 9px var(--mono);letter-spacing:.08em;color:#8d8f86}.nav{display:flex;gap:6px;pointer-events:auto}.nav button{width:32px;height:32px;border-radius:50%;border:1px solid rgba(120,120,110,.42);background:rgba(243,239,230,.82);backdrop-filter:blur(8px);color:var(--ink);cursor:pointer}.nav button:hover{background:var(--rust);border-color:var(--rust);color:#fff}.hint{position:fixed;z-index:50;top:20px;right:25px;font:700 8px var(--mono);letter-spacing:.09em;color:#888b82;opacity:.7}
+.chrome{position:fixed;z-index:50;left:22px;right:22px;bottom:16px;display:flex;align-items:center;gap:13px;pointer-events:none}.progress{height:2px;flex:1;background:rgba(115,115,105,.27)}.progress i{display:block;width:9.09%;height:100%;background:var(--rust);transition:width .4s ease}.counter{min-width:52px;text-align:right;font:700 9px var(--mono);letter-spacing:.08em;color:#8d8f86}.nav{display:flex;gap:6px;pointer-events:auto}.nav button{width:32px;height:32px;border-radius:50%;border:1px solid rgba(120,120,110,.42);background:rgba(243,239,230,.82);backdrop-filter:blur(8px);color:var(--ink);cursor:pointer}.nav button:hover{background:var(--rust);border-color:var(--rust);color:#fff}.hint{position:fixed;z-index:50;top:20px;right:25px;font:700 8px var(--mono);letter-spacing:.09em;color:#888b82;opacity:.7}
 @media(max-width:900px){.hero .content,.problem .content,.report .content,.proofpass .content,.demo .content,.criteria .content,.close .content{grid-template-columns:1fr}.hero-art,.problem-graph,.radar,.flywheel{height:40vh}.hc1,.hc2{display:none}.product-head,.pipeline-head{display:block}.product-head .dek,.pipeline-head .dek{text-align:left;margin-top:12px}.appbody{grid-template-columns:1fr}.rail{display:none}.path{grid-template-columns:repeat(4,1fr)}.step:nth-child(n+5){display:none}.demo-screen,.proof-ui,.report-page{height:44vh}.slide{overflow-y:auto}.slide h2{font-size:42px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.load-line,.attention-line,.radar-shape{stroke-dashoffset:0}.graph-area,.funnel-part{opacity:1;transform:none}.bar i{transform:none}.score-ring .value{stroke-dashoffset:31.4}}
 @media print{html,body{height:auto;overflow:visible}.slides{height:auto;overflow:visible}.slide{width:13.333in;height:7.5in;page-break-after:always}.chrome,.hint{display:none}}
@@ -60,6 +60,7 @@
 .artifact-frame{width:100%;height:100%;border:0;background:var(--cream);overscroll-behavior:contain}
 /* Exact third HyperFrames cut: evidence base forming */
 .video-slide .content{align-self:stretch;padding-top:22px;display:grid;grid-template-columns:.36fr 1fr;gap:4vw;align-items:center}.video-copy{display:grid;gap:22px}.video-copy h2{font-size:clamp(45px,5.1vw,80px)}.video-stage{padding:10px;background:var(--night);border:1px solid #3d4038;box-shadow:0 25px 65px rgba(29,31,26,.24)}.video-stage video{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#000}.video-meta{display:flex;justify-content:space-between;gap:18px;padding:12px 3px 0;color:#aeb1a7;font:700 8px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase}.video-beat{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:3px;background:var(--line);border:1px solid var(--line)}.video-beat span{padding:12px 9px;background:var(--paper);font:700 8px/1.25 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}.video-beat b{display:block;margin-bottom:4px;color:var(--rust);font:400 22px/1 var(--serif)}
+.final-cut .video-stage{border-color:#55584e;box-shadow:0 28px 80px rgba(0,0,0,.42)}.final-cut .video-copy{align-content:center}.final-cut .video-copy h2{color:var(--paper)}.final-cut .video-copy .dek{color:#b7baaf}.final-cut .video-kicker{display:flex;align-items:center;gap:10px;color:var(--gold);font:700 9px var(--mono);letter-spacing:.13em;text-transform:uppercase}.final-cut .video-kicker::before{content:"";width:34px;height:1px;background:var(--gold)}
 </style>
 </head>
 <body>
@@ -89,7 +90,7 @@
 
 <section class="slide video-slide cream">
  <div class="topline"><div class="brand"><svg class="spark" viewBox="0 0 24 24"><path d="M12 2c0 6-4 10-10 10 6 0 10 4 10 10 0-6 4-10 10-10-6 0-10-4-10-10Z" fill="currentColor"/></svg>Interview Copilot</div><span class="section-no">04 · The evidence base</span></div>
- <div class="content"><div class="video-copy"><p class="eyebrow reveal">The third cut · exact artifact</p><h2 class="reveal d1">Twenty minutes.<br><span class="accent">Fifteen seconds.</span></h2><p class="dek reveal d2">Watch the transcript, evidence base, and interview coverage form as the clock runs.</p><div class="video-beat reveal d3"><span><b>157</b>turns</span><span><b>45</b>evidence</span><span><b>4/6</b>covered</span></div></div><div class="video-stage reveal d2"><video data-slide-video muted loop playsinline preload="auto" aria-label="The evidence base forming animation"><source src="interview-evidence-animation.mp4" type="video/mp4"></video><div class="video-meta"><span>03 · The evidence base forming</span><span>15 sec · 30 fps · silent</span></div></div></div>
+ <div class="content"><div class="video-copy"><p class="eyebrow reveal">The third cut · exact artifact</p><h2 class="reveal d1">Twenty minutes.<br><span class="accent">Fifteen seconds.</span></h2><p class="dek reveal d2">Watch the transcript, evidence base, and interview coverage form as the clock runs.</p><div class="video-beat reveal d3"><span><b>157</b>turns</span><span><b>45</b>evidence</span><span><b>4/6</b>covered</span></div></div><div class="video-stage reveal d2"><video data-slide-video data-loop-delay="5000" muted playsinline preload="auto" aria-label="The evidence base forming animation"><source src="interview-evidence-animation.mp4" type="video/mp4"></video><div class="video-meta"><span>03 · The evidence base forming</span><span>15 sec · 5 sec end hold · silent</span></div></div></div>
 </section>
 
 <section class="slide pipeline-slide cream">
@@ -117,9 +118,14 @@
  <div class="content"><div class="close-copy"><p class="eyebrow reveal">This is bigger than one theme or city</p><h1 class="reveal d1">The factory repeats.<br><span class="accent">The copilot stays.</span></h1><p class="dek reveal d2">Run a different theme. A different city. A different problem. Keep the human present—and keep the evidence moving.</p><div class="close-note reveal d3"><i></i><span class="small">Built at the Nimman Hackathon · Chiang Mai · August 2026</span></div></div><div class="flywheel reveal d2"><svg viewBox="0 0 640 640" aria-label="Interview validation flywheel"><circle cx="320" cy="320" r="242" class="wheel"/><circle cx="320" cy="320" r="170" class="wheel"/><path d="M320 78a242 242 0 1 1-1 0" class="wheel-dash"/><g><circle cx="320" cy="78" r="53" class="wheel-node"/><text x="320" y="76" text-anchor="middle" class="wheel-title">INTERVIEW</text><text x="320" y="95" text-anchor="middle" class="wheel-sub">listen</text></g><g><circle cx="562" cy="320" r="53" class="wheel-node"/><text x="562" y="317" text-anchor="middle" class="wheel-title">INSIGHTS</text><text x="562" y="336" text-anchor="middle" class="wheel-sub">structure</text></g><g><circle cx="320" cy="562" r="53" class="wheel-node wheel-hot"/><text x="320" y="559" text-anchor="middle" class="wheel-title" fill="#fff">BUILD</text><text x="320" y="578" text-anchor="middle" class="wheel-sub" fill="#f6d7cf">prototype</text></g><g><circle cx="78" cy="320" r="53" class="wheel-node"/><text x="78" y="317" text-anchor="middle" class="wheel-title">VALIDATE</text><text x="78" y="336" text-anchor="middle" class="wheel-sub">return</text></g><g class="center-spark"><circle cx="320" cy="320" r="86" fill="#1d1f1a"/><path d="M320 269c0 31-20 51-51 51 31 0 51 20 51 51 0-31 20-51 51-51-31 0-51-20-51-51Z" fill="#c69b58"/></g></svg></div></div>
 </section>
 
+<section class="slide video-slide final-cut dark">
+ <div class="grain"></div><div class="topline"><div class="brand"><svg class="spark" viewBox="0 0 24 24"><path d="M12 2c0 6-4 10-10 10 6 0 10 4 10 10 0-6 4-10 10-10-6 0-10-4-10-10Z" fill="currentColor"/></svg>Interview Copilot</div><span class="section-no">10 · The factory in motion</span></div>
+ <div class="content"><div class="video-copy"><p class="video-kicker reveal">The second cut · exact artifact</p><h2 class="reveal d1">Many signals in.<br><span class="gold">One buildable bet out.</span></h2><p class="dek reveal d2">The human decision gate stays visible. Everything before and after it gets faster.</p></div><div class="video-stage reveal d2"><video data-slide-video muted loop playsinline preload="auto" aria-label="The funnel narrowing animation"><source src="interview-funnel-animation.mp4" type="video/mp4"></video><div class="video-meta"><span>02 · The funnel narrowing</span><span>15 sec · 30 fps · silent</span></div></div></div>
+</section>
+
 </main>
 <div class="hint">← → &nbsp; TO NAVIGATE &nbsp; · &nbsp; F FULLSCREEN</div>
-<footer class="chrome"><div class="progress"><i></i></div><span class="counter">01 / 10</span><nav class="nav"><button type="button" data-dir="-1" aria-label="Previous slide">←</button><button type="button" data-dir="1" aria-label="Next slide">→</button></nav></footer>
+<footer class="chrome"><div class="progress"><i></i></div><span class="counter">01 / 11</span><nav class="nav"><button type="button" data-dir="-1" aria-label="Previous slide">←</button><button type="button" data-dir="1" aria-label="Next slide">→</button></nav></footer>
 <script>
 (()=>{const scroller=document.querySelector('.slides'),slides=[...document.querySelectorAll('.slide')],fill=document.querySelector('.progress i'),counter=document.querySelector('.counter');let current=0,locked=false;function go(n){current=Math.max(0,Math.min(slides.length-1,n));locked=true;slides[current].scrollIntoView({behavior:'smooth'});setTimeout(()=>locked=false,500)}function update(){const n=Math.max(0,Math.min(slides.length-1,Math.round(scroller.scrollTop/innerHeight)));current=n;slides.forEach((s,i)=>s.classList.toggle('is-visible',i===n));fill.style.width=`${(n+1)/slides.length*100}%`;counter.textContent=`${String(n+1).padStart(2,'0')} / ${String(slides.length).padStart(2,'0')}`;history.replaceState(null,'',`#${n+1}`)}scroller.addEventListener('scroll',()=>requestAnimationFrame(update),{passive:true});addEventListener('keydown',e=>{if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(current+1)}if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(current-1)}if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.()});document.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>go(current+Number(b.dataset.dir))));const requested=Number(location.hash.slice(1));if(requested>1)requestAnimationFrame(()=>go(requested-1));update()})();
 </script>
@@ -128,13 +134,36 @@
   const mount=(selector,src,title)=>{const host=document.querySelector(selector);if(!host)return;const frame=document.createElement('iframe');frame.className='artifact-frame';frame.src=src;frame.title=title;frame.loading='eager';frame.tabIndex=0;host.replaceChildren(frame)};
   mount('.product .app','interview-copilot-live.html','Scrollable Interview Copilot live workspace');
   mount('.report-page','interview-copilot-report.html','Scrollable Interview Copilot report');
-  const animation=document.querySelector('[data-slide-video]');
-  if(animation){
-    animation.muted=true;
-    new IntersectionObserver(entries=>entries.forEach(entry=>{
-      if(entry.isIntersecting){animation.currentTime=0;animation.play().catch(()=>{});}else{animation.pause();animation.currentTime=0;}
-    }),{root:document.querySelector('.slides'),threshold:.65}).observe(animation.closest('.slide'));
+  const liveFrame=document.querySelector('.product .artifact-frame');
+  if(liveFrame){
+    const liveSlide=document.querySelector('.product');
+    let liveSyncTimer;
+    const syncLive=()=>{clearTimeout(liveSyncTimer);liveSyncTimer=setTimeout(()=>liveFrame.contentWindow?.postMessage(liveSlide.classList.contains('is-visible')?'demo:start':'demo:reset','*'),650)};
+    new MutationObserver(syncLive).observe(liveSlide,{attributes:true,attributeFilter:['class']});
+    liveFrame.addEventListener('load',syncLive);
+    syncLive();
   }
+  document.querySelectorAll('[data-slide-video]').forEach(animation=>{
+    animation.muted=true;
+    let replayTimer;
+    const delay=Number(animation.dataset.loopDelay||0);
+    if(delay)animation.addEventListener('ended',()=>{
+      clearTimeout(replayTimer);
+      replayTimer=setTimeout(()=>{
+        if(animation.closest('.slide').classList.contains('is-visible')){
+          animation.currentTime=0;
+          animation.play().catch(()=>{});
+        }
+      },delay);
+    });
+    const videoSlide=animation.closest('.slide');
+    let videoSyncTimer;
+    const syncVideo=()=>{clearTimeout(videoSyncTimer);videoSyncTimer=setTimeout(()=>{
+      if(videoSlide.classList.contains('is-visible')){clearTimeout(replayTimer);animation.currentTime=0;animation.play().catch(()=>{});}else{clearTimeout(replayTimer);animation.pause();animation.currentTime=0;}
+    },650)};
+    new MutationObserver(syncVideo).observe(videoSlide,{attributes:true,attributeFilter:['class']});
+    syncVideo();
+  });
 })();
 </script>
 </body>
