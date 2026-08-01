@@ -5,11 +5,14 @@ import {
   buildReport,
   fetchDefaultConfiguration,
   fetchHealth,
+  fetchReport,
+  fetchReports,
   researchInterview,
   startInterviewSession,
   transcribeAudio,
   validateConfiguration,
 } from "./api";
+import type { ReportIndexItem } from "./api";
 import { ActivityPanel } from "./components/ActivityPanel";
 import { EvidencePanel } from "./components/EvidencePanel";
 import { ReportView } from "./components/ReportView";
@@ -97,6 +100,8 @@ export default function App() {
   const [report, setReport] = useState<PersistentInterviewReport | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [isTranscribing, setIsTranscribing] = useState(false);
+  const [savedReports, setSavedReports] = useState<ReportIndexItem[]>([]);
+  const [isLoadingReport, setIsLoadingReport] = useState(false);
   const elapsed = useElapsed(startedAt);
 
   const stateRef = useRef<{
@@ -137,6 +142,60 @@ export default function App() {
     if (researchTimerRef.current) window.clearTimeout(researchTimerRef.current);
     researchAbortRef.current?.abort();
   }, []);
+
+  // Rehydrate a saved report into the live workspace — transcript, evidence and all.
+  // Read-only: the archived interview is finished, so recording and analysis stay off.
+  const loadSavedReport = useCallback(async (reportId: number) => {
+    setIsLoadingReport(true);
+    try {
+      const document = await fetchReport(reportId);
+      setTranscript(document.transcript);
+      setEvidence(document.evidence);
+      setSuggestions([]);
+      setResearchCards([]);
+      setReport(document);
+      setEngine(document.engine ?? "idle");
+      setMode("demo");
+      setStartedAt(null);
+      activeTemplateIdRef.current = null;
+      if (configuration) {
+        const hydrated = { ...cloneConfiguration(configuration), template: document.template };
+        activeConfigurationRef.current = hydrated;
+        setConfiguration(hydrated);
+      }
+      setPhase("live");
+      setNotice(
+        `Loaded report #${document.report_id} — ${document.transcript.length} turns, ` +
+        `${document.evidence.length} evidence items. Read-only; recording is off.`,
+      );
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : "Could not load that report.");
+    } finally {
+      setIsLoadingReport(false);
+    }
+  }, [configuration]);
+
+  // Saved reports for the setup screen, plus ?report=N deep-linking.
+  useEffect(() => {
+    if (phase !== "setup") return;
+    let active = true;
+    void fetchReports()
+      .then((items) => { if (active) setSavedReports(items); })
+      .catch(() => { if (active) setSavedReports([]); });
+    return () => { active = false; };
+  }, [phase]);
+
+  useEffect(() => {
+    if (!configuration) return;
+    const requested = new URLSearchParams(window.location.search).get("report");
+    if (!requested) return;
+    const reportId = Number.parseInt(requested, 10);
+    if (Number.isNaN(reportId)) return;
+    window.history.replaceState({}, "", window.location.pathname);
+    void loadSavedReport(reportId);
+    // Deep link fires once, on the first render that has a configuration.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configuration !== null]);
 
   useEffect(() => {
     if (phase !== "live") return;
@@ -612,6 +671,29 @@ export default function App() {
   if (phase === "setup") {
     return <>
       {notice && <div className="inline-notice setup-notice"><span>{notice}</span><button onClick={() => setNotice(null)}>Dismiss</button></div>}
+      {savedReports.length > 0 && (
+        <div className="saved-reports">
+          <div className="saved-reports-head">
+            <strong>Saved interviews</strong>
+            <span>Reopen one in the workspace — transcript and evidence, read-only</span>
+          </div>
+          <ul>
+            {savedReports.map((item) => (
+              <li key={item.report_id}>
+                <button
+                  className="saved-report-row"
+                  disabled={isLoadingReport}
+                  onClick={() => void loadSavedReport(item.report_id)}
+                >
+                  <span className="saved-report-id">#{String(item.report_id).padStart(3, "0")}</span>
+                  <span className="saved-report-summary">{item.summary}</span>
+                  <span className="saved-report-score">{item.score}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <SetupScreen
         configuration={configuration}
         defaultConfiguration={defaultConfiguration}

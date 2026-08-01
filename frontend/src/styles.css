@@ -449,3 +449,32 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+/* Saved interviews — reopen an archived report in the workspace */
+.saved-reports {
+  max-width: 880px;
+  margin: 24px auto -8px;
+  padding: 16px 18px;
+  border: 1px solid var(--line, #d9d2c4);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.55);
+}
+.saved-reports-head { display: flex; flex-direction: column; gap: 2px; margin-bottom: 10px; }
+.saved-reports-head strong { font-size: 13px; letter-spacing: .02em; }
+.saved-reports-head span { font-size: 12px; opacity: .65; }
+.saved-reports ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.saved-report-row {
+  width: 100%; display: grid; grid-template-columns: auto 1fr auto;
+  gap: 14px; align-items: center; text-align: left;
+  padding: 10px 12px; border: 1px solid var(--line, #d9d2c4); border-radius: 8px;
+  background: #fff; cursor: pointer; font: inherit; font-size: 13px;
+  transition: border-color .12s ease, background .12s ease;
+}
+.saved-report-row:hover:not(:disabled) { border-color: #b9ae98; background: #fffdf8; }
+.saved-report-row:disabled { opacity: .5; cursor: default; }
+.saved-report-id { font-variant-numeric: tabular-nums; font-weight: 600; opacity: .55; font-size: 12px; }
+.saved-report-summary { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.saved-report-score {
+  font-variant-numeric: tabular-nums; font-weight: 600; font-size: 12px;
+  padding: 2px 8px; border-radius: 999px; background: #efe9dc;
+}

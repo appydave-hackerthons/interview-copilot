@@ -44,6 +44,24 @@ export function fetchDefaultConfiguration(): Promise<InterviewConfiguration> {
   return jsonRequest("/api/config/default");
 }
 
+export interface ReportIndexItem {
+  report_id: number;
+  session_id: string;
+  created_at: string;
+  summary: string;
+  score: number;
+  html_url: string;
+  json_url: string;
+}
+
+export function fetchReports(): Promise<ReportIndexItem[]> {
+  return jsonRequest("/api/reports");
+}
+
+export function fetchReport(reportId: number): Promise<PersistentInterviewReport> {
+  return jsonRequest(`/api/reports/${reportId}`);
+}
+
 export function validateConfiguration(configuration: unknown): Promise<InterviewConfiguration> {
   return jsonRequest("/api/config/validate", jsonInit(configuration));
 }
