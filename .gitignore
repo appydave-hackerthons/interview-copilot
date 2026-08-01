@@ -1,0 +1,10 @@
+.DS_Store
+.env
+.mcp.json
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+frontend/node_modules/
+frontend/dist/
+var/
